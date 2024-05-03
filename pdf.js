@@ -70,7 +70,7 @@ module.exports = async function (RED) {
             password,
           }).promise;
           const result = await this.retrievePdfTextContent(pdfDocument);
-          node.send(result);
+          node.send({ payload: result });
         } catch (error) {
           node.error(`UnknownError: Failed to load PDF ${e}`);
         }
