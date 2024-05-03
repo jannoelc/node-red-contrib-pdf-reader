@@ -1,5 +1,7 @@
 # node-red-contrib-pdf-reader
 
+![NPM Version](https://img.shields.io/npm/v/node-red-contrib-pdf-reader) ![Node Current](https://img.shields.io/node/v/node-red-contrib-pdf-reader)
+
 A Node-RED node to extract PDF text content. Heavily inspired by https://github.com/RedBackSpider/node-red-contrib-pdfjs
 
 ## Differences from the original repository

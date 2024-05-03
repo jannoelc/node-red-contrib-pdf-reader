@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-pdf-reader",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Node-RED node to read pdf data using pdfjs",
   "scripts": {},
   "keywords": [
@@ -10,6 +10,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jannoelc/node-red-contrib-pdf-reader.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "node-red": {
     "nodes": {
