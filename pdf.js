@@ -96,8 +96,8 @@ module.exports = async function (RED) {
       const page = await pdfDocument.getPage(pageNumber);
       const content = await page.getTextContent();
 
-      if (this.sortByX && this.sortByY) {
-        content.items.sort(getSortFunction());
+      if (this.sortByX || this.sortByY) {
+        content.items.sort(this.getSortFunction());
       }
 
       return this.combineFunction(content.items);
