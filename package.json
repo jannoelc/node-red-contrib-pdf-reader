@@ -1,0 +1,28 @@
+{
+  "name": "node-red-contrib-pdf-reader",
+  "version": "1.0.0",
+  "description": "Node-RED node to read pdf data using pdfjs",
+  "scripts": {},
+  "keywords": [
+    "node-red",
+    "pdfjs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jannoelc/node-red-contrib-pdf-reader.git"
+  },
+  "node-red": {
+    "nodes": {
+      "pdf": "pdf.js"
+    }
+  },
+  "author": "Jan Calayag",
+  "license": "ISC",
+  "dependencies": {
+    "pdfjs-dist": "^4.2.67"
+  },
+  "devDependencies": {
+    "@types/node-red": "^0.20.7",
+    "prettier": "^3.2.5"
+  }
+}

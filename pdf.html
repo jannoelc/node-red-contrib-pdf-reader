@@ -1,0 +1,116 @@
+<script type="text/x-red" data-template-name="pdf">
+<div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> <span>Name</span></label>
+    <input type="text" id="node-input-name" placeholder="Name" />
+</div>
+<div class="form-row">
+    <label for="node-input-pages"><i class="fa fa-file"></i> <span>Pages</span></label>
+    <input type="text" id="node-input-pages" placeholder="Pages" />
+</div>
+<div class="form-row">
+    <label for="node-input-password"><i class="fa fa-file"></i> <span>Password</span></label>
+    <input type="password" id="node-input-password" placeholder="PDF password" />
+</div>
+<div class="form-row">
+    <input type="checkbox" id="node-input-sortByY"
+        style="display: inline-block; width: auto; vertical-align: baseline" />
+    <label for="node-input-sortByY" style="width: 70%">
+        <span>Order text from top to bottom</span></label>
+</div>
+<div class="form-row">
+    <input type="checkbox" id="node-input-sortByX"
+        style="display: inline-block; width: auto; vertical-align: baseline" />
+    <label for="node-input-sortByX" style="width: 70%">
+        <span>Order text from left to right</span></label>
+</div>
+<div class="form-row">
+    Merge text with next text in order if:<br />
+    <label><span>&nbsp;</span></label><label for="node-input-combineColumn" style="width: auto">
+        both are in same column:</label>
+    <input type="checkbox" id="node-input-combineColumn"
+        style="display: inline-block; width: auto; vertical-align: baseline" /><br />
+    <label><span>&nbsp;</span></label><label for="node-input-combineRow" style="width: auto">both are in same
+        row:</label>
+    <input type="checkbox" id="node-input-combineRow"
+        style="display: inline-block; width: auto; vertical-align: baseline" /><br />
+</div>
+</script>
+
+<script type="text/x-red" data-help-name="pdf">
+<p>A node to help extract text contents from a pdf. Uses the Mozilla library found <a
+        href="https://github.com/mozilla/pdf.js"> here</a> to extract text data.</p>
+<h3>Inputs</h3>
+<dl class="message-properties">
+    <dt>payload.data<span class="property-type">object | string</span></dt>
+    <dd>Either a buffer object that corresponds to a pdf file</dd>
+    <dt class="optional">payload.password<span class="property-type">string</span></dt>
+    <dd>Password of the PDF file</dd>
+</dl>
+<h3>Config</h3>
+<dl class="message-properties">
+    <dt class="optional">pages<span class="property-type">string</span></dt>
+    <dd>If pages is not provided, includes all the pages of the PDF</dd>
+    <dt class="optional">password<span class="property-type">string</span></dt>
+    <dd>Password of the PDF file</dd>
+    <dt class="optional">Order text<span class="property-type">boolean</span></dt>
+    <dd>Check this option to force the text to be ordered top down using the y value if 'from top to bottom' is
+        selected, or ordered left to right by it's x value
+        if 'from left to right' is selected. If both options are selected, it will order from top to bottom, then left
+        to right.</dd>
+    <dt class="optional">Merge text with next text<span class="property-type">boolean</span></dt>
+    <dd>When inserting text into output payload array, if the previous text inserted has the same x value (are in the
+        same column), or same y value (are in the same row), concatenate
+        the string to be inserted with the previous string with a space instead.</dd>
+</dl>
+<h3>Outputs</h3>
+<dl class="message-properties">
+    <dt>payload<span class="property-type">array</span></dt>
+    <dd>Results of the parsing will be returned as an array with each element in the array corresponding to a page in
+        the pdf. </dd>
+    <dd> Each page in the array is stored as an array of objects which can be seen below. p is the order in the pdf
+        document
+        <pre>[
+    {
+      "p": 1,
+      "x": 328.78, // distance away from the right edge
+      "y": 1175.676, // distance away from the bottom of the page
+      "t": "Survey Responses 1/02/19 - 31/04/19" // text content
+    },
+    {
+      "p": 2,
+      "x": 428.78,
+      "y": 1175.676,
+      "t": "Survey Responses 1/05/19 - 31/07/19"
+    }
+  ]</pre>
+    </dd>
+</dl>
+<h3>Tips</h3>
+<p>Since PDF text data is not stored in XML formatting and instead uses x and y transformations to calculate where
+    on the page each string should be, there might be cases where text would be returned out of order. This can be
+    alleviated
+    by sorting the document on its x and y coordinates in reverse y order.
+</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType("pdf", {
+        category: "parser",
+        color: "#debd5c",
+        defaults: {
+            name: { value: "" },
+            pages: { value: "" },
+            password: { value: "" },
+            sortByY: { value: false },
+            sortByX: { value: false },
+            combineColumn: { value: false },
+            combineRow: { value: false },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "parser-html.png",
+        label: function () {
+            return this.name || "pdf";
+        },
+    });
+</script>
