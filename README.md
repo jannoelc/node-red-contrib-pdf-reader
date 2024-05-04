@@ -6,8 +6,8 @@ A Node-RED node to extract PDF text content. Heavily inspired by https://github.
 
 ## Differences from the original repository
 
-- Support for read files using file name is remove. Use a node to read a file and pass the contents to this node.
-- Password support and Selecting specific page has been included
+- Support for read files using file name is removed. Instead, use another node to read a file and pass the contents to this node
+- Password support and selecting specific page has been included
 - Includes the latest (as of writing) version of https://github.com/mozilla/pdfjs-dist
 - Only supports Node 18 and up (due to pdfjs-dist not supporting lower Node versions)
 - Partial rewrite and JSDoc-annotated code
